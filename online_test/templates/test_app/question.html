@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for question in questions %}
+        <h1 style="display: flex; align-items: center; justify-content: center; margin-top: 20px">
+        {{question.text}}
+        </h1>
+        
+        <form method="post" class="was-validated">
+            {% csrf_token %}
+            <div class="form-error">{{ form.non_fields_errors }}</div>
+            {% for answer in answers %}
+            <div style="display: flex; align-items: center; justify-content: center; margin-top: 20px">
+            {% for f in form %}
+            <label style="margin-right:10px">{{f}}</label>
+            <div class="form-text">{{ f.help_text }}</div>
+            <div class="error-as-text">{{ f.errors.as_text }}</div>
+            {% endfor %}
+            {{answer}}
+            </div>
+            {% endfor %}
+            <p style="display: flex; align-items: center; justify-content: center; margin-top: 20px"> 
+            <button type="submit" class="btn btn-primary">Следующий</button>
+        </p>
+        </form>
+
+    {% endfor %}
+    
+        
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1 style="display: flex; align-items: center; justify-content: center;">Статистика</h1>
+    <p style="display: flex; align-items: center; justify-content: center;">
+       Правильных ответов: {{statistics.number_of_correct_answers}}</p>
+       
+    <p style="display: flex; align-items: center; justify-content: center;">
+        Неправильных ответов: {{wrong_answers}}</p>
+
+    <h1 style="display: flex; align-items: center; justify-content: center;">Ваш результат</h1>
+
+    <h1 style="display: flex; align-items: center; justify-content: center;">{{percentege_of_correct}}</h1>
+    <p style="display: flex; align-items: center; justify-content: center; margin-top: 20px">
+    <a href="{{ test_group.get_absolute_url }}" class="btn btn-outline-primary">Вернуться к набору тестов</a>
+    </p> 
+    
+    
+{% endblock %}

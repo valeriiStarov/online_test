@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 style="display: flex; align-items: center; justify-content: center;">Статистика за все тесты по теме:</h1>
+    <h1 style="display: flex; align-items: center; justify-content: center;">
+    {{test_group.title}}</h1>
+    
+    <p style="display: flex; align-items: center; justify-content: center;">
+       Правильных ответов: {{number_of_correct_answers}}</p>
+       
+    <p style="display: flex; align-items: center; justify-content: center;">
+        Неправильных ответов: {{wrong_answers}}</p>
+
+    
+    <h1 style="display: flex; align-items: center; justify-content: center;">Ваш результат за все тесты</h1>
+
+    <h1 style="display: flex; align-items: center; justify-content: center;">{{percentege_of_correct}}</h1>
+    <p style="display: flex; align-items: center; justify-content: center; margin-top: 20px">
+    <a href="{% url 'home' %}" class="btn btn-outline-primary">Вернуться на главную страницу</a>
+    </p>
+    
+    
+{% endblock %}

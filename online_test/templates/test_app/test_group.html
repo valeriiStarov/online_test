@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <h1 style="display: flex; align-items: center; justify-content: center;">{{test_group.title}}</h1>
+    {% if all_done %}
+    <a href="{{ test_group.get_test_group_statistics_url }}" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center;">Посмотреть результат за все тесты</a>
+    {% endif %}
+
+    <!--TestSuit Card's-->
+    <div class="card" style="margin-top: 20px;">
+        <div class="card-body">
+    {% for test in tests %}
+    <div
+    {% if test_group.logging_required %} class="card border border-success border-2"
+    {% else %} class="card border border-primary border-2"
+    {% endif %} style="margin: 10px;">
+        <div class="card-body">
+        <h5 class="card-title" style="color:red">{{no_auth}}</h5>
+        <h5 class="card-title">{{test.title}}</h5>
+        <p class="card-text">{{test.description}}</p>
+
+    {% if forloop.counter == 1 or test in passed %}
+        <div style="display: inline-block;">
+        <a href="{{ test.get_absolute_url }}" class="btn btn-outline-primary">Перейти к тесту</a>
+        
+        {% if test in tests_done %}
+        <img src="{% static 'images/OK.png' %}" width="25" class="d-link-block align-text-top">
+        {% endif %}
+
+        </div>
+    {% else %}
+        <button class="btn btn-outline-primary" disabled>Перейти к тесту</button>
+        Предыдущий тест не пройден
+    {% endif %}
+    </div>
+    </div>
+    
+    {% endfor %}
+    </div>
+    </div>
+    <!--TestSuit Card's-->
+
+{% endblock %}

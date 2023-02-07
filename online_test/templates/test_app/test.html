@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for question in questions %}
+        <h1 style="display: flex; align-items: center; justify-content: center; margin-top: 20px">
+        {{question.text}}
+        </h1>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md">
+
+            <form method="post" class="was-validated">
+            {% csrf_token %}
+            <div class="row" style="margin-top:20px">
+                <div class="col-md-1" style="margin-right:-20px">
+            <div style="display: inline; justify-content:left; margin-top: 20px">
+                
+            {% for f in form %}
+            <p style="margin-right:10px">{{f}}</p>
+            
+            <div class="form-text">{{ f.help_text }}</div>
+            <div class="error-as-text">{{ f.errors.as_text }}</div>
+            {% endfor %}
+            
+            </div></div>
+            <div class="col-md-5">
+            {% for answer in answers %}
+            <p>{{answer.text}}</p>
+            {% endfor%}
+            </div>
+            </div>
+            <div class="form-error">{{ form_error.non_field_errors }}</div>
+               
+<!--Pagination-->
+{% if questions.has_other_pages %}
+<nav>
+    <ul class="pagination pagination-lg" style="display: flex; justify-content: left; margin-top: 20px">
+
+    {% if questions.has_previous %}
+    <li class="page-item" aria-current="page" style="margin-right:20px">
+    <a class="page-link" href="?page={{ questions.previous_page_number }}">Назад</a>
+    </li>
+    {% endif %}
+
+    {% if questions.has_next %}
+    <li class="page-item">
+    <button type="submit" class="page-link" href="?page={{ questions.next_page_number }}">Далее</button>
+    </li>
+    {% else %}
+    
+    <li class="page-item" style="display: flex; align-items: center; justify-content: center">
+        <button type="submit" class="page-link">Завершить тест</button>
+    </li>
+    {% endif %}
+
+    {% else %}
+    <li class="page-item" style="display: flex; align-items: center; justify-content: left">
+    <button type="submit" class="page-link">Завершить тест</button>
+    </li>
+</ul>
+</nav>
+{% endif %}
+</form>
+{% endfor %}
+<!--Конец Pagination-->
+</div></div>
+
+        
+{% endblock %}

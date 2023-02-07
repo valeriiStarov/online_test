@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1 style="display: flex; align-items: center; justify-content: center;">Онлайн тесты</h1>
+    {% if request.user.is_authenticated %}
+    <p style="display: flex; align-items: center; justify-content: center; margin-top: 20px">
+        <label style="margin-right: 10px">{{request.user.username}}</label>
+        <a href="{% url 'logout' %}" class="btn btn-outline-warning">Выйти</a>
+    </p>
+
+    {% else %}
+    
+    <p style="display: flex; align-items: center; justify-content: center; margin-top: 20px">
+        <a href="{% url 'login' %}" style="margin-right: 10px" class="btn btn-outline-primary">Войти</a>
+        <a href="{% url 'register' %}" class="btn btn-outline-success">Регистрация</a>
+    </p>
+    {% endif %}
+
+    <!--TestSuit Card's-->
+    <div class="card" style="margin-top: 20px;">
+        <div class="card-body">
+    {% for test_group in test_groups %}
+    <div
+    {% if test_group.logging_required %} class="card border border-success border-2"
+    {% else %} class="card border border-primary border-2"
+    {% endif %} style="margin: 10px;">
+        <div class="card-body">
+        <h5 class="card-title" style="color:red">{{no_auth}}</h5>
+        <h5 class="card-title">{{test_group.title}}</h5>
+        
+        <p class="card-text">{{test_group.description}}</p>
+    {% if test_group.logging_required %}
+        {% if request.user.is_authenticated %}
+            <a href="{{ test_group.get_absolute_url }}" class="btn btn-outline-primary">Перейти к тесту</a>
+        {% else %}
+            <button class="btn btn-outline-primary" disabled>Перейти к тесту</button>
+            Тест доступен только авторизованным пользователям.
+        {% endif %}
+    {% else %}
+    <a href="{{ test_group.get_absolute_url }}" class="btn btn-outline-primary">Перейти к тесту</a>
+    {% endif %}
+    </div>
+    </div>
+    
+    {% endfor %}
+    </div>
+    </div>
+    <!--TestSuit Card's-->
+
+{% endblock %}
