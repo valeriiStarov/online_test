@@ -11,7 +11,7 @@ class QuestionInline(admin.StackedInline):
     readonly_fields = ['get_edit_link']
 
     def get_edit_link(self, instance):
-        url = f'http://127.0.0.1:8000/admin/test_app/question/{instance.pk}/change/'
+        url = f'http://0.0.0.0:8000/admin/test_app/question/{instance.pk}/change/'
         return format_html('<a href="{}">Редактировать вопрос, изменить ответы</a>', url)
 
     get_edit_link.short_description = 'Link to edit'
@@ -31,7 +31,7 @@ class TestInline(admin.StackedInline):
     readonly_fields = ['get_edit_link']
 
     def get_edit_link(self, instance):
-        url = f'http://127.0.0.1:8000/admin/test_app/test/{instance.pk}/change/'
+        url = f'http://0.0.0.0:8000/admin/test_app/test/{instance.pk}/change/'
         return format_html('<a href="{}">Редактировать тест, изменить вопросы</a>', url)
 
     get_edit_link.short_description = 'Link to edit'
